@@ -13,7 +13,7 @@ use constant DEFAULT_EXPIRE =>          '7 days';
 
 use vars qw( $MYNAME $VERSION );
 $MYNAME = 'SearchResultsCache';
-$VERSION = '1.0.0';
+$VERSION = '1.1.0';
 
 use base qw( MT::Plugin );
 my $plugin = new MT::Plugin ({
@@ -37,9 +37,9 @@ sub instance { $plugin }
 require MT::App::Search;
 no warnings qw( redefine );
 
-my $sub_original = \&MT::App::Search::execute;
-*MT::App::Search::execute = sub {
-	my( $app ) = @_;
+my $sub_original = \&MT::App::Search::process;
+*MT::App::Search::process = sub {
+    my( $app ) = @_;
 
     ### Initialize cache component
     my $cache = Cache::File->new(
